@@ -46,25 +46,25 @@
          <children>
             <Button mnemonicParsing="false" text="Create" textFill="#3a803a" GridPane.columnIndex="3" GridPane.rowIndex="9" />
             <ChoiceBox prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <TextField maxHeight="25.0" maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <TextField maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label text="Last Name" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-            <Label text="First Name" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <TextField maxHeight="25.0" maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label text="Last Name" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label text="First Name" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <TextField maxWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
             <TextField maxWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <TextField maxWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <TextField maxHeight="25.0" maxWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <TextField maxHeight="25.0" maxWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <Label GridPane.rowIndex="3" />
-            <Label text="Street" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="City " GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Label text="Street Number" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Label text="Address" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label text="State" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Label text="Zip Code" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <Label text="Street" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label text="City " GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label text="Street Number" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="Address" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
+            <Label text="State" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label text="Zip Code" GridPane.columnIndex="3" GridPane.rowIndex="5" />
             <Label text="Phone Number" GridPane.rowIndex="4" />
             <TextField maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField maxWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-            <Label prefHeight="17.0" text="User Info" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <TextField maxWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <ChoiceBox prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <Label prefHeight="17.0" text="User Info" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
             <Label text="User Type" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
             <Label text="Username" GridPane.rowIndex="7" />
             <Label text="Password" GridPane.rowIndex="8" />
@@ -73,6 +73,8 @@
             <TextField maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
             <Label text="Re-enter password" GridPane.rowIndex="9" />
             <Label text="Login Info" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+            <Label text="Email" GridPane.rowIndex="3" />
+            <TextField maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
          </children>
          <GridPane.margin>
             <Insets />
