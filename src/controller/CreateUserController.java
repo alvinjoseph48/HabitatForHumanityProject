@@ -1,15 +1,26 @@
 package controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Alert.AlertType;
 
-public class CreateUserController {
-
+public class CreateUserController implements Initializable {
+	private BorderPane borderPane;
+	public CreateUserController(BorderPane borderPane) {
+		this.borderPane = borderPane;
+	}
     @FXML
     private TextField firstNameField;
     @FXML
@@ -53,11 +64,9 @@ public class CreateUserController {
     		
     		fieldEmptyAlert();
     		return;
-    	}
-    	
-    	
-		
+    	}	
 	}
+
     private void fieldEmptyAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Empty Fields");
@@ -69,5 +78,11 @@ public class CreateUserController {
 		alert.setHeaderText("Password's Do Not Match");
 		alert.setContentText("Please enter password again");
 		alert.showAndWait();
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
 	}
 }
