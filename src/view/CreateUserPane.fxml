@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CreateUserController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -45,7 +45,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="createUserBtn" mnemonicParsing="false" text="Create" textFill="#3a803a" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <Button fx:id="createUserBtn" mnemonicParsing="false" onAction="#createUserBtnClicked" text="Create" textFill="#3a803a" GridPane.columnIndex="3" GridPane.rowIndex="9" />
             <ChoiceBox fx:id="userTypeBox" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
             <TextField fx:id="lastNameField" maxHeight="25.0" maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <TextField fx:id="firstNameField" maxWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />

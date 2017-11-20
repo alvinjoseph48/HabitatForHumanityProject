@@ -1,7 +1,5 @@
 package view;
 
-import javafx.scene.layout.BorderPane;
-
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
@@ -9,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
 
 public class View {
 	private BorderPane borderPane;
@@ -63,14 +62,59 @@ public class View {
 		}
 		
 	}
+	public void searchItemClicked() {
+		searchItem.setOnAction(e ->{
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPane.fxml"));
+				borderPane.setCenter(root);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}	
+		});
+	}
+	public void shoppingCartClicked() {
+		shoppingCart.setOnAction(e ->{
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
+				borderPane.setCenter(root);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}	
+		});
+	}
+	public void deleteUserClicked() {
+		deleteUser.setOnAction(e ->{
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/CreateUserPane.fxml"));
+				borderPane.setCenter(root);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}	
+		});
+	}
+	
+	public void updateUserClicked() {
+		updateUser.setOnAction(e ->{
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPane.fxml"));
+				borderPane.setCenter(root);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}	
+		});
+	}
 	public void exit () {
 		exit.setOnAction(e -> {
 			System.exit(0);
 		});
 	}
+	
 
 	public BorderPane getBorderPane() {
 		return borderPane;
+	}
+	public void setCenter(Parent root) {
+		borderPane.setCenter(root);
 	}
 	
 	

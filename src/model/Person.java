@@ -9,9 +9,9 @@ public class Person {
 	private String username;
 	private String password;
 
+
 	public Person(String firstName, String lastName, String email, String phoneNumber, Address address, String username,
 			String password) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -19,6 +19,7 @@ public class Person {
 		this.address = address;
 		this.username = username;
 		this.password = password;
+
 	}
 
 	public String getFirstName() {
@@ -76,5 +77,7 @@ public class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	
 
 }
