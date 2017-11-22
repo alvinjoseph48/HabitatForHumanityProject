@@ -13,19 +13,22 @@ import model.Manager;
 import model.Person;
 
 public class DbConnect {
-	// private Connection con;
-	// private Statement st;
-	// private ResultSet rs;
-	private static Person person;
+
+	private static Person person = new Person();
 
 	private static Connection connect() throws SQLException, ClassNotFoundException {
 		// try {
 		Class.forName("com.mysql.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/habitatforhumanity", "root", "");
-		// st = con.createStatement();
-		// } catch (Exception ex) {
-		// System.out.println("Error: " + ex);
-		// }
+
+	}
+
+	public static boolean isLoggedIn() {
+		String s = person.getUsername();
+		if (s == null) {
+			return false;
+		}
+		return true;
 	}
 
 	public static void insertPerson(Person p) throws SQLException {
@@ -67,21 +70,40 @@ public class DbConnect {
 		}
 	}
 
-	public static Person getPerson(String givenuserName) throws SQLException {
-		// set person object to preson retrieved
-		Person p = null;
+	public static Person deletePerson() throws SQLException {
 		Connection con = null;
 		try {
 			con = connect();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		String query = "SELECT * FROM person WHERE `userName`= ?" ;
-		// Statement st = con.createStatement();
-		
+		String query = "delete from person where userName = ?";
+
 		PreparedStatement preparedStmt = con.prepareStatement(query);
-		preparedStmt.setString(0, givenuserName);
+		preparedStmt.setString(1, person.getUsername());
+		if (preparedStmt.execute()) {
+			return person;
+		}
+
+		return null;
+	}
+
+	public static Person getPerson(String givenuserName) throws SQLException {
+		Customer c = null;
+		Employee em = null;
+		Manager m = null;
+		Connection con = null;
+		try {
+			con = connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		String query = "SELECT * FROM person WHERE `userName`= ?";
+		// Statement st = con.createStatement();
+		PreparedStatement preparedStmt = con.prepareStatement(query);
+		preparedStmt.setString(1, givenuserName);
 		ResultSet rs = preparedStmt.executeQuery();
+		System.out.println(rs.toString());
 		if (rs.first()) {
 			String firstName = rs.getString("firstName");
 			String lastName = rs.getString("lastName");
@@ -97,16 +119,24 @@ public class DbConnect {
 			String userType = rs.getString("userType");
 			Address a = new Address(streetNumber, street, city, state, zipCode);
 			if (userType.equals("customer")) {
-				p = (Customer) new Person(firstName, lastName, email, phoneNumber, a, userName, password);
+				c = new Customer(firstName, lastName, email, phoneNumber, a, userName, password);
+				person = c;
+				con.close();
+				return c;
 			}
 			if (userType.equals("manager")) {
-				p = (Manager) new Person(firstName, lastName, email, phoneNumber, a, userName, password);
+				m = new Manager(firstName, lastName, email, phoneNumber, a, userName, password);
+				person = m;
+				con.close();
+				return m;
 			}
 			if (userType.equals("employee")) {
-				p = (Employee) new Person(firstName, lastName, email, phoneNumber, a, userName, password);
+				em = new Employee(firstName, lastName, email, phoneNumber, a, userName, password);
+				person = em;
+				con.close();
+				return em;
 			}
-			con.close();
-			return p;
+
 		}
 		con.close();
 		return null;

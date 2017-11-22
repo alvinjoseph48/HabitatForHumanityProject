@@ -21,7 +21,7 @@ import model.Person;
 import view.View;
 
 public class LoginController implements Initializable {
-	// private View view;
+	//private View view;
 	@FXML
 	private PasswordField passwordField;
 	@FXML
@@ -48,6 +48,11 @@ public class LoginController implements Initializable {
 			Person p = DbConnect.getPerson(usernameField.getText());
 			if(p == null) {
 				createAccountAlert();
+				return;
+			}
+			if(passwordField.getText().isEmpty()) {
+				passwordErrorAlert();
+				return;
 			}
 			if(!p.getPassword().equals(passwordField.getText())) {
 				passwordErrorAlert();
@@ -55,17 +60,15 @@ public class LoginController implements Initializable {
 			}
 			
 		} catch (SQLException e1) {
-			
 			e1.printStackTrace();
 		}
-		
 		//set after pane after comfirmed 
 		Parent root;
 		try {
-
-			root = FXMLLoader.load(getClass().getResource("/view/CreateUserPane.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
 			Node node = (Node) event.getSource();
 			BorderPane pane = (BorderPane) node.getParent().getParent();
+	//		view.unDisableBtns();
 			pane.setCenter(root);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -83,7 +86,9 @@ public class LoginController implements Initializable {
 			alert.setContentText("Please Create a Account");
 			alert.showAndWait();
 		}
-	 
+//	 public void setView(View view) {
+//		 this.view = view;
+//	 }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

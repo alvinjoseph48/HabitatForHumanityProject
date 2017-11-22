@@ -59,6 +59,7 @@ public class CreateUserController implements Initializable {
     private PasswordField createPasswordField2;
     @FXML
     private Button  createUserBtn;
+    
     public void createUserBtnClicked(ActionEvent event){
     	if(!createPasswordField.getText().equals(createPasswordField2.getText())) {
     		passwordNoMatchAlert();
@@ -122,6 +123,7 @@ public class CreateUserController implements Initializable {
   		alert.setContentText("Please Enter another userName");
   		alert.showAndWait();
   	}
+ 
     private void fieldEmptyAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Empty Fields");
@@ -139,10 +141,6 @@ public class CreateUserController implements Initializable {
 		alert.setHeaderText("Password's Do Not Match");
 		alert.setContentText("Please enter password again");
 		alert.showAndWait();
-	}
-    
-	public void setBorderPane(BorderPane borderPane) {
-		this.borderPane = borderPane;
 	}
 	private ObservableList<String> states = FXCollections.observableArrayList("Alabama", "Alaska", "Arkansas", "Arizona",
 			"California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
