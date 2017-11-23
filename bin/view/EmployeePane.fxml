@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:id="employeeBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmployeeController">
+   <top>
+      <MenuBar fx:id="employeeMenuBar" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem fx:id="employeeLogout" mnemonicParsing="false" onAction="#employeeLogoutClicked" text="Logout" />
+                  <MenuItem fx:id="employeeExit" mnemonicParsing="false" onAction="#employeeExitClicked" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Search">
+            <items>
+              <MenuItem fx:id="employeeProductSearch" mnemonicParsing="false" onAction="#productSearchClicked" text="Product" />
+                  <MenuItem fx:id="employeeCustomerSearch" mnemonicParsing="false" text="Customer" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Insert">
+              <items>
+                  <MenuItem fx:id="employeeInsert" mnemonicParsing="false" text="Product Into DataBase" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Account Settings">
+            <items>
+              <MenuItem fx:id="employeeUpdate" mnemonicParsing="false" text="Update Infomation" />
+                  <MenuItem fx:id="employeeDelete" mnemonicParsing="false" onAction="#employeeDeleteUserClicked" text="Delete Account" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

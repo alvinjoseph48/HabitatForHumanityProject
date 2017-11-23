@@ -87,6 +87,39 @@ public class DbConnect {
 
 		return null;
 	}
+	public static Person getPerson() {
+		return person;
+	}
+	public static boolean updatePerson(Person newPerson) {
+		Connection con = null;
+		PreparedStatement preparedStmt;
+		String query;
+		try {
+			con = connect();
+			query = "UPDATE person set firstName=?,lastName=?,email=?,phoneNumber=?,userName=?,password=?,"
+					+ "streetNumber=?,street=?,city=?,state=?,zipCode=? where username=?";
+			preparedStmt= con.prepareStatement(query);
+			preparedStmt.setString(1, newPerson.getFirstName());
+			preparedStmt.setString(2, newPerson.getLastName());
+			preparedStmt.setString(3, newPerson.getEmail());
+			preparedStmt.setString(4, newPerson.getPhoneNumber());
+			preparedStmt.setString(5, newPerson.getUsername());
+			preparedStmt.setString(6, newPerson.getPassword());
+			preparedStmt.setString(7, newPerson.getAddress().getStreetNum());
+			preparedStmt.setString(8, newPerson.getAddress().getStreet());
+			preparedStmt.setString(9, newPerson.getAddress().getCity());
+			preparedStmt.setString(10, newPerson.getAddress().getState());
+			preparedStmt.setString(11, newPerson.getAddress().getZip());
+			preparedStmt.setString(12, person.getUsername() );
+			preparedStmt.executeUpdate();
+		    con.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			return false;
+		} 
+		return true;
+
+	}
 
 	public static Person getPerson(String givenuserName) throws SQLException {
 		Customer c = null;
@@ -99,7 +132,6 @@ public class DbConnect {
 			e.printStackTrace();
 		}
 		String query = "SELECT * FROM person WHERE `userName`= ?";
-		// Statement st = con.createStatement();
 		PreparedStatement preparedStmt = con.prepareStatement(query);
 		preparedStmt.setString(1, givenuserName);
 		ResultSet rs = preparedStmt.executeQuery();

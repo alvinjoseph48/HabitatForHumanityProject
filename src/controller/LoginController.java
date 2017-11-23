@@ -19,6 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Customer;
+import model.Employee;
+import model.Manager;
 import model.Person;
 
 
@@ -73,6 +75,32 @@ public class LoginController implements Initializable {
 		}
 		// set after pane after comfirmed
 		if (p instanceof Customer) {
+			try {
+				Stage stage = (Stage) createUserBtn.getScene().getWindow();
+				stage.close();
+				Stage stage2 = new Stage();
+				Parent root = FXMLLoader.load(getClass().getResource("/view/CustomerPane.fxml"));
+				Scene scene = new Scene(root);
+				stage2.setScene(scene);
+				stage2.show();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (p instanceof Employee) {
+			try {
+				Stage stage = (Stage) createUserBtn.getScene().getWindow();
+				stage.close();
+				Stage stage2 = new Stage();
+				Parent root = FXMLLoader.load(getClass().getResource("/view/EmployeePane.fxml"));
+				Scene scene = new Scene(root);
+				stage2.setScene(scene);
+				stage2.show();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (p instanceof Manager) {
 			try {
 				Stage stage = (Stage) createUserBtn.getScene().getWindow();
 				stage.close();

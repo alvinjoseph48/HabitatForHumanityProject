@@ -12,20 +12,13 @@ public class Start extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-//		Start.primaryStage = primaryStage;
-	//	View view = new View();
-	//	LoginController lc = new LoginController();
-	//	lc.setView(view);
+
 		primaryStage.setTitle("Habitat for Humanity");
 		Parent root = FXMLLoader.load(getClass().getResource("/view/loginPane.fxml"));
-		//primaryStage.setScene(new Scene(view.getBorderPane(), 600, 400));
 		primaryStage.setScene(new Scene(root, 600, 400));
 
 		primaryStage.show();
-	//	view.exit();
-	//	view.shoppingCartClicked();
-	//	view.deleteUserClicked();
-	//	view.unDisableUntilLogin();
+	
 	
 	}
 

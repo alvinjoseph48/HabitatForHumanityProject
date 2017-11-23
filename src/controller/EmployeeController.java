@@ -1,20 +1,16 @@
 package controller;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
 import java.util.Optional;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Alert.AlertType;
@@ -22,50 +18,55 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Person;
 
-public class CustomerController {
-	@FXML
-	private MenuBar customerMenuBar;
-	@FXML
-	private BorderPane customerBorderPane;
-	@FXML
-	private MenuItem customerLogout;
+public class EmployeeController {
 
 	@FXML
-	private MenuItem customerExit;
+	private MenuItem employeeLogout;
+	@FXML
+	private MenuBar employeeMenuBar;
+	@FXML
+	private MenuItem employeeExit;
 
 	@FXML
-	private MenuItem customerSearch;
+	private MenuItem employeeProductSearch;
 
 	@FXML
-	private MenuItem customerCart;
+	private MenuItem employeeCustomerSearch;
 
 	@FXML
-	private MenuItem customerUpdate;
+	private MenuItem employeeInsert;
 
 	@FXML
-	private MenuItem customerDelete;
+	private MenuItem employeeUpdate;
 
-	public void searchClicked(ActionEvent event) {
+	@FXML
+	private MenuItem employeeDelete;
+	
+	@FXML
+	private BorderPane employeeBorderPane;
+	
+	public void productSearchClicked(ActionEvent event) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
-			customerBorderPane.setCenter(root);
+		
+			Parent root = FXMLLoader.load(getClass().getResource("/view/EmployeeSearchPane.fxml"));
+			employeeBorderPane.setCenter(root);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
 
-	public void shoppingCartClicked(ActionEvent event) {
-		try {
-			
-			Parent root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
-			customerBorderPane.setCenter(root);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+//	public void customerSearchClicked(ActionEvent event) {
+//		try {
+//			Node node = (Node) event.getSource();
+//			BorderPane pane = (BorderPane) node.getParent();
+//			Parent root = FXMLLoader.load(getClass().getResource("/view/Employee.fxml"));
+//			pane.setCenter(root);
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
+//	}
 
-	}
-
-	public void deleteUserClicked(ActionEvent event) {
+	public void employeeDeleteUserClicked(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmation Dialog");
 		alert.setHeaderText("Deleting User");
@@ -74,27 +75,26 @@ public class CustomerController {
 		if (result.get() == ButtonType.OK) {
 			try {
 				Person p = DbConnect.deletePerson();
-				alertAccountDeleted();
-				// setLoginPane();
+				employeeAlertAccountDeleted();
+
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 		}
 		try {
-			Stage stage = (Stage) customerMenuBar.getScene().getWindow();
+			Stage stage = (Stage) employeeMenuBar.getScene().getWindow();
 			stage.close();
-
 			Stage stage2 = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPane.fxml"));
-			Scene scene = new Scene(root);
-			stage2.setScene(scene);
+			Scene scene2 = new Scene(root);
+			stage2.setScene(scene2);
 			stage2.show();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		
 	}
-
-	private void alertAccountDeleted() {
+	private void employeeAlertAccountDeleted() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeaderText("Acount deleted");
 		alert.setContentText("Sorry to see you go, please come another time!");
@@ -102,18 +102,17 @@ public class CustomerController {
 	}
 
 	@FXML
-	public void logoutClicked(ActionEvent event) {
-		if (!alertLogoutSuccesfull()) {
+	public void employeeLogoutClicked(ActionEvent event) {
+		if (!employeeAlertLogoutSuccesfull()) {
 			return;
 		}
 		try {
-			Stage stage = (Stage) customerMenuBar.getScene().getWindow();
+			Stage stage = (Stage) employeeMenuBar.getScene().getWindow();
 			stage.close();
-
 			Stage stage2 = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPane.fxml"));
-			Scene scene = new Scene(root);
-			stage2.setScene(scene);
+			Scene scene2 = new Scene(root);
+			stage2.setScene(scene2);
 			stage2.show();
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -121,7 +120,7 @@ public class CustomerController {
 
 	}
 
-	private boolean alertLogoutSuccesfull() {
+	private boolean employeeAlertLogoutSuccesfull() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Logout");
 		alert.setContentText("Are you sure you want to logout?");
@@ -132,18 +131,17 @@ public class CustomerController {
 		return true;
 	}
 
-	public void updateUserClicked(ActionEvent event) {
+	public void employeeUpdateUserClicked(ActionEvent event) {
 		try {
-			
-			Parent root = FXMLLoader.load(getClass().getResource("/view/CustomerUpdatePane.fxml"));
-			customerBorderPane.setCenter(root);
+			Parent root = FXMLLoader.load(getClass().getResource("/view/CreateUserPane.fxml"));
+			employeeBorderPane.setCenter(root);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
 	}
 
-	public void exitClicked(ActionEvent event) {
+	public void employeeExitClicked(ActionEvent event) {
 		System.exit(0);
 	}
 
