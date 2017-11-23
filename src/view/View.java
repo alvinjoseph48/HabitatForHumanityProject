@@ -65,13 +65,23 @@ public class View {
 		menuBar.getMenus().setAll(fileMenu, searchMenu, removeMenu, shoppingMenu);
 
 		borderPane.setTop(menuBar);
-		setLoginPane();
+		setShoppingPane();
+		//setLoginPane();
 	}
-
-	private void setLoginPane() {
+//	private void setLoginPane() {
+//		Parent root;
+//		try {
+//			root = FXMLLoader.load(getClass().getResource("/view/loginPane.fxml"));
+//			borderPane.setCenter(root);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		disableUntilLogin();
+//	}
+	private void setShoppingPane() {
 		Parent root;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/view/LoginPane.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
 			borderPane.setCenter(root);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -138,7 +148,7 @@ public class View {
 				try {
 					Person p = DbConnect.deletePerson();
 					alertAccountDeleted();
-					setLoginPane();
+		//			setLoginPane();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
@@ -154,11 +164,11 @@ public class View {
 		alert.showAndWait();
 	}
 
-	public void logoutClicked() {
-		logout.setOnAction(e -> {
-			setLoginPane();
-		});
-	}
+//	public void logoutClicked() {
+//		logout.setOnAction(e -> {
+//			setLoginPane();
+//		});
+//	}
 
 	public void updateUserClicked() {
 		updateUser.setOnAction(e -> {

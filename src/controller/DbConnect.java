@@ -103,7 +103,6 @@ public class DbConnect {
 		PreparedStatement preparedStmt = con.prepareStatement(query);
 		preparedStmt.setString(1, givenuserName);
 		ResultSet rs = preparedStmt.executeQuery();
-		System.out.println(rs.toString());
 		if (rs.first()) {
 			String firstName = rs.getString("firstName");
 			String lastName = rs.getString("lastName");

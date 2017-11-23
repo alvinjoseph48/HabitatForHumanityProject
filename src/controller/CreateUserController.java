@@ -15,11 +15,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import model.Address;
 import model.Customer;
 import model.Employee;
@@ -106,14 +108,15 @@ public class CreateUserController implements Initializable {
 			return;
 		}
     	accountCreatedAlert();
-    	Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/view/loginPane.fxml"));
-			Node node = (Node) event.getSource();
-			BorderPane pane = (BorderPane) node.getParent().getParent().getParent();
-			pane.setCenter(root);
-		} catch (IOException e) {
-			e.printStackTrace();
+    	try {
+    	
+			Stage stage2 = new Stage();
+			Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPane.fxml"));
+			Scene scene = new Scene (root);
+			stage2.setScene(scene);
+			stage2.show();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 	
