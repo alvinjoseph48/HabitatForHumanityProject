@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
 import model.Address;
 import model.Person;
 
-public class CustomerUpdateController implements Initializable {
+public class UpdateController implements Initializable {
 
     @FXML
     private TextField customerFirstNameUpdate;

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import model.Address;
 import model.Customer;
 import model.Employee;
+import model.Item;
 import model.Manager;
 import model.Person;
 
@@ -69,6 +70,31 @@ public class DbConnect {
 			e.printStackTrace();
 		}
 	}
+	public static void insertItem(Item p) throws SQLException {
+		try {
+			Connection con = connect();
+			String query = " insert into items (productName, modelNumber, brand, color, price, itemDemensions, imageUrl, category)" 
+			+ " values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+			// create the mysql insert preparedstatement
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			preparedStmt.setString(1, p.getProductName());
+			preparedStmt.setString(2, p.getModelNum());
+			preparedStmt.setString(3, p.getBrand());
+			preparedStmt.setString(4, p.getColor());
+			preparedStmt.setString(5, p.getPrice());
+			preparedStmt.setString(6, p.getItemDemensions());
+			preparedStmt.setString(7, p.getImageUrl());
+			preparedStmt.setString(8, p.getCategory());
+			// execute the preparedstatement
+			preparedStmt.execute();
+
+			// close connectione
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static Person deletePerson() throws SQLException {
 		Connection con = null;
@@ -91,6 +117,7 @@ public class DbConnect {
 		return person;
 	}
 	public static boolean updatePerson(Person newPerson) {
+		person = newPerson;
 		Connection con = null;
 		PreparedStatement preparedStmt;
 		String query;

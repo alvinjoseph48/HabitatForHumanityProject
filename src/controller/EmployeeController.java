@@ -48,23 +48,12 @@ public class EmployeeController {
 	public void productSearchClicked(ActionEvent event) {
 		try {
 		
-			Parent root = FXMLLoader.load(getClass().getResource("/view/EmployeeSearchPane.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
 			employeeBorderPane.setCenter(root);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 	}
-
-//	public void customerSearchClicked(ActionEvent event) {
-//		try {
-//			Node node = (Node) event.getSource();
-//			BorderPane pane = (BorderPane) node.getParent();
-//			Parent root = FXMLLoader.load(getClass().getResource("/view/Employee.fxml"));
-//			pane.setCenter(root);
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
-//	}
 
 	public void employeeDeleteUserClicked(ActionEvent event) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -80,6 +69,8 @@ public class EmployeeController {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}else {
+			return;
 		}
 		try {
 			Stage stage = (Stage) employeeMenuBar.getScene().getWindow();
@@ -130,15 +121,22 @@ public class EmployeeController {
 		}
 		return true;
 	}
-
 	public void employeeUpdateUserClicked(ActionEvent event) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/view/CreateUserPane.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/UpdatePane.fxml"));
 			employeeBorderPane.setCenter(root);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
 
+	}
+	public void insertItemClicked(ActionEvent event) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/view/InsertItemPane.fxml"));
+			employeeBorderPane.setCenter(root);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	public void employeeExitClicked(ActionEvent event) {

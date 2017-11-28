@@ -109,7 +109,8 @@ public class CreateUserController implements Initializable {
 		}
     	accountCreatedAlert();
     	try {
-    	
+    		Stage stage = (Stage) createUserBtn.getScene().getWindow();
+			stage.close();
 			Stage stage2 = new Stage();
 			Parent root = FXMLLoader.load(getClass().getResource("/view/LoginPane.fxml"));
 			Scene scene = new Scene (root);

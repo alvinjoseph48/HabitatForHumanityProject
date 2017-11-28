@@ -25,7 +25,7 @@ public class ShoppingPaneController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		productTypeBox.getItems().removeAll(productTypeBox.getItems());
-		productTypeBox.getItems().addAll("Furniture", "Window", "Wood", "Paint");
+		productTypeBox.getItems().addAll("Window","Paint","Furniture");
 		
 	}
 }

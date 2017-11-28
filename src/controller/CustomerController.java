@@ -79,6 +79,8 @@ public class CustomerController {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+		}else {
+			return;
 		}
 		try {
 			Stage stage = (Stage) customerMenuBar.getScene().getWindow();
@@ -135,7 +137,7 @@ public class CustomerController {
 	public void updateUserClicked(ActionEvent event) {
 		try {
 			
-			Parent root = FXMLLoader.load(getClass().getResource("/view/CustomerUpdatePane.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/UpdatePane.fxml"));
 			customerBorderPane.setCenter(root);
 		} catch (IOException e1) {
 			e1.printStackTrace();
