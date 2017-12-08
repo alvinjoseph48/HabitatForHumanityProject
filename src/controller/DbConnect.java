@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.Address;
 import model.Customer;
@@ -95,6 +96,68 @@ public class DbConnect {
 			e.printStackTrace();
 		}
 	}
+	public static ArrayList<Item> getItem(String givenProductName) throws SQLException {
+		
+		Connection con = null;
+		try {
+			con = connect();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		String query = "SELECT * FROM items WHERE productName LIKE ? ";
+		//String query = "SELECT productName FROM items WHERE CONTAINS (productName, ?) ";
+		PreparedStatement preparedStmt = con.prepareStatement(query);
+		preparedStmt.setString(1, givenProductName);
+		ResultSet rs = preparedStmt.executeQuery();
+		ArrayList<Item> resultList = new ArrayList<Item>();
+		while(rs.next()) {
+			String modelNumber = rs.getString("modelNumber");
+			String brand = rs.getString("brand");
+			String color = rs.getString("color");
+			String price = rs.getString("price");
+			String itemDemensions = rs.getString("itemDemensions");
+			String imageUrl = rs.getString("imageUrl");
+			String category = rs.getString("category");
+			Item item = new Item(givenProductName,modelNumber,brand,  color,  price, itemDemensions, imageUrl, category);
+			resultList.add(item);
+			System.out.println(item.getProductName());
+		}
+		con.close();
+		return resultList;
+		
+		
+	
+	}
+	
+//	public static Item getItem(String givenProductName) throws SQLException {
+//		Connection con = null;
+//		try {
+//			con = connect();
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		String query = "SELECT * FROM items WHERE `productName`= ?";
+//		PreparedStatement preparedStmt = con.prepareStatement(query);
+//		preparedStmt.setString(1, givenProductName);
+//		ResultSet rs = preparedStmt.executeQuery();
+//		if (rs.first()) {
+//			String modelNumber = rs.getString("modelNumber");
+//			String brand = rs.getString("brand");
+//			String color = rs.getString("color");
+//			String price = rs.getString("price");
+//			String itemDemensions = rs.getString("itemDemensions");
+//			String imageUrl = rs.getString("imageUrl");
+//			String category = rs.getString("category");
+//			Item item = new Item(givenProductName,modelNumber,brand,  color,  price,  
+//					itemDemensions, imageUrl, category);
+//			con.close();
+//			
+//			return item;
+//		}
+//		con.close();
+//		return null;
+//	}
 
 	public static Person deletePerson() throws SQLException {
 		Connection con = null;
@@ -145,9 +208,8 @@ public class DbConnect {
 			return false;
 		} 
 		return true;
-
 	}
-
+	
 	public static Person getPerson(String givenuserName) throws SQLException {
 		Customer c = null;
 		Employee em = null;

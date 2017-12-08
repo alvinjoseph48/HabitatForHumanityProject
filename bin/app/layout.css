@@ -1,0 +1,52 @@
+.root{
+	-fx-background-color: #383838;
+} 
+
+.button{
+	-fx-text-fill: aqua  ;
+	-fx-background-radius: 10;
+	-fx-background-color: black ;
+	-fx-border-color: aqua ;
+	-fx-border-radius: 10;
+}
+.label{
+	-fx-text-fill: aqua ;
+	-fx-font-style: italic ;
+	-fx-font-size: 14;
+	
+}
+.textField{
+	-fx-border-color: aqua ;
+	-fx-border-radius: 10;
+	
+}
+.menu-bar  {
+	-fx-background-color: darkred ;
+	
+}
+.menu-item  .label  {
+	-fx-text-fill: darkred ;
+	-fx-background-color: black;
+	-fx-background-radius: 10;
+	-fx-font-size: 14;
+}
+.menu-item{
+	-fx-background-color: black;
+	-fx-text-fill: darkred;
+	-fx-border-color: darkred ;
+}
+.menu-item:focused{
+	-fx-background-color: #383838 ;
+}
+.menu-item:focused .label{
+	-fx-background-color: #383838 ;
+	-fx-font-size: 14;
+}
+
+.menu{
+	-fx-background-color: darkred;
+}
+
+
+
+

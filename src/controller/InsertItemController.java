@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import model.Item;
 
@@ -64,10 +66,19 @@ public class InsertItemController implements Initializable {
 		String demensions = demensionsField.getText();
 		String imageUrl = imageUrlField.getText();
 		String category = categoryBox.getSelectionModel().getSelectedItem();
+		try {
+			Image image = new Image(imageUrl);
+		} catch (IllegalArgumentException e1) {
+			imageUrlInvalidAlert();
+			return;
+		}
 		Item newItem = new Item(productName, modelNumber, brand, color, price, demensions, imageUrl, category);
+		
+		
 		
 		try {
 			DbConnect.insertItem(newItem);
+			itemInsertedAlert();
 		} catch(MySQLIntegrityConstraintViolationException e) {
 			producNameNotUniqueAlert();
 			return;
@@ -75,6 +86,13 @@ public class InsertItemController implements Initializable {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void imageUrlInvalidAlert() {
+		Alert alert = new Alert(AlertType.ERROR);
+  		alert.setHeaderText("Inavlid Image Url");
+  		alert.setContentText("Please Enter valid URL File \n For Example: file:///C://Users// ");
+  		alert.showAndWait();
 	}
 
 	private void producNameNotUniqueAlert() {
@@ -88,6 +106,12 @@ public class InsertItemController implements Initializable {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Empty Fields");
 		alert.setContentText("Please Enter all fields to insert Item!");
+		alert.showAndWait();
+	}
+	private void itemInsertedAlert() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText("Product Inserted Into Database");
+		alert.setContentText("Thank you! ");
 		alert.showAndWait();
 	}
 
