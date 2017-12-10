@@ -1,24 +1,29 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Person;
 
-public class EmployeeController {
+public class EmployeeController implements Initializable {
 
 	@FXML
 	private MenuItem employeeLogout;
@@ -48,7 +53,7 @@ public class EmployeeController {
 	public void productSearchClicked(ActionEvent event) {
 		try {
 		
-			Parent root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/view/UpdateItemPane.fxml"));
 			employeeBorderPane.setCenter(root);
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -141,6 +146,19 @@ public class EmployeeController {
 
 	public void employeeExitClicked(ActionEvent event) {
 		System.exit(0);
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		Image image = new Image("file:///C:/Users/alvin/Desktop/CSE%20248/JosephCse248HabitatForHumanityProject/images/1200px-Habitat_for_humanity.svg.png");
+		ImageView iv = new ImageView();
+		iv.setImage(image);
+		iv.setPreserveRatio(true);
+		iv.setSmooth(true);
+		iv.setFitWidth(300);
+		iv.setFitHeight(300);
+		iv.setImage(image);
+		employeeBorderPane.setCenter(iv);
 	}
 
 }

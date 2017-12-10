@@ -9,9 +9,10 @@ public class Item {
 	private String itemDemensions;
 	private String imageUrl;
 	private String category;
+	private String qty;
 
 	public Item(String productName, String modelNum, String brand, String color, String price, String itemDemensions,
-			String imageUrl, String category) {
+			String imageUrl, String category,String qty) {
 		super();
 		this.productName = productName;
 		this.modelNum = modelNum;
@@ -21,6 +22,7 @@ public class Item {
 		this.itemDemensions = itemDemensions;
 		this.imageUrl = imageUrl;
 		this.category = category;
+		this.qty = qty;
 	}
 
 	public String getImageUrl() {
@@ -53,6 +55,9 @@ public class Item {
 
 	public String getCategory() {
 		return category;
+	}
+	public String getQty() {
+		return qty;
 	}
 
 

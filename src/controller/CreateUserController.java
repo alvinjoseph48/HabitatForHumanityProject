@@ -13,14 +13,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
+
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.Address;
 import model.Customer;
@@ -32,7 +33,7 @@ import javafx.scene.control.Button;
 
 public class CreateUserController implements Initializable {
 	@FXML
-	private BorderPane borderPane;
+	private GridPane gridPane;
     @FXML
     private TextField firstNameField;
     @FXML
@@ -159,6 +160,7 @@ public class CreateUserController implements Initializable {
 		userTypeBox.getItems().addAll("Customer", "Employee", "Manager");
 		stateBox.getItems().removeAll(stateBox.getItems());
 		stateBox.getItems().addAll(states);
+		gridPane.setStyle("-fx-background-color: #383838;");
 		
 	}
 

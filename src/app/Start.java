@@ -20,7 +20,4 @@ public class Start extends Application {
 		primaryStage.show();
 		
 	}
-
-	
-
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -14,7 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import model.Item;
 
@@ -48,38 +50,46 @@ public class InsertItemController implements Initializable {
 	private TextField brandField;
 
 	@FXML
+	private TextField qtyField;
+
+	@FXML
+	private Button browseBtn;
+
+	@FXML
 	void insertIntoDatabaseClicked(ActionEvent event) {
-		
-		if( productNameField.getText().isEmpty()  ||modelNumberField.getText().isEmpty() || 
-				demensionsField.getText().isEmpty() ||imageUrlField.getText().isEmpty() ||
-				priceField.getText().isEmpty() ||colorField.getText().isEmpty() || 
-				brandField.getText().isEmpty() ||categoryBox.getSelectionModel().isEmpty()
-    			){
-    		fieldInsertEmptyAlert();
-    		return;
-    	}
-		String productName = productNameField.getText();
-		String modelNumber = modelNumberField.getText();
-		String brand = brandField.getText();
-		String color = colorField.getText();
-		String price = priceField.getText();
-		String demensions = demensionsField.getText();
 		String imageUrl = imageUrlField.getText();
-		String category = categoryBox.getSelectionModel().getSelectedItem();
 		try {
 			Image image = new Image(imageUrl);
 		} catch (IllegalArgumentException e1) {
 			imageUrlInvalidAlert();
 			return;
 		}
-		Item newItem = new Item(productName, modelNumber, brand, color, price, demensions, imageUrl, category);
+		if (productNameField.getText().isEmpty() || modelNumberField.getText().isEmpty()
+				|| demensionsField.getText().isEmpty() || imageUrlField.getText().isEmpty()
+				|| priceField.getText().isEmpty() || colorField.getText().isEmpty() || brandField.getText().isEmpty()
+				|| categoryBox.getSelectionModel().isEmpty() || qtyField.getText().isEmpty()) {
+			fieldInsertEmptyAlert();
+			return;
+		}
+		String productName = productNameField.getText();
+		String modelNumber = modelNumberField.getText();
+		String brand = brandField.getText();
+		String color = colorField.getText();
+		String price = priceField.getText();
+		String demensions = demensionsField.getText();
 		
+		String category = categoryBox.getSelectionModel().getSelectedItem();
+		String qty = qtyField.getText();
+
 		
+
 		
+		Item newItem = new Item(productName, modelNumber, brand, color, price, demensions, imageUrl, category, qty);
+
 		try {
 			DbConnect.insertItem(newItem);
 			itemInsertedAlert();
-		} catch(MySQLIntegrityConstraintViolationException e) {
+		} catch (MySQLIntegrityConstraintViolationException e) {
 			producNameNotUniqueAlert();
 			return;
 		} catch (SQLException e) {
@@ -88,18 +98,25 @@ public class InsertItemController implements Initializable {
 
 	}
 
+	public void browseBtnClicked(ActionEvent event) {
+		 FileChooser fileChooser = new FileChooser();
+		 Stage stage = new Stage();
+		 File file = fileChooser.showOpenDialog(stage);
+		 imageUrlField.setText(file.toURI().getPath());
+	}
+
 	private void imageUrlInvalidAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
-  		alert.setHeaderText("Inavlid Image Url");
-  		alert.setContentText("Please Enter valid URL File \n For Example: file:///C://Users// ");
-  		alert.showAndWait();
+		alert.setHeaderText("Inavlid Image Url");
+		alert.setContentText("Please Enter valid URL File \n For Example: file:///C://Users// ");
+		alert.showAndWait();
 	}
 
 	private void producNameNotUniqueAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
-  		alert.setHeaderText("Product Name is alreay Taken");
-  		alert.setContentText("Please Enter another product Name");
-  		alert.showAndWait();
+		alert.setHeaderText("Product Name is alreay Taken");
+		alert.setContentText("Please Enter another product Name");
+		alert.showAndWait();
 	}
 
 	private void fieldInsertEmptyAlert() {
@@ -108,6 +125,7 @@ public class InsertItemController implements Initializable {
 		alert.setContentText("Please Enter all fields to insert Item!");
 		alert.showAndWait();
 	}
+
 	private void itemInsertedAlert() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeaderText("Product Inserted Into Database");

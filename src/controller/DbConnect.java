@@ -52,6 +52,7 @@ public class DbConnect {
 			preparedStmt.setString(9, p.getAddress().getCity());
 			preparedStmt.setString(10, p.getAddress().getState());
 			preparedStmt.setString(11, p.getAddress().getZip());
+			
 			if (p instanceof Employee) {
 				preparedStmt.setString(12, "employee");
 			}
@@ -71,11 +72,38 @@ public class DbConnect {
 			e.printStackTrace();
 		}
 	}
+	public static boolean updateItem(Item i) {
+		Connection con = null;
+		PreparedStatement preparedStmt;
+		String query;
+		try {
+			con = connect();
+			query = "UPDATE items set modelNumber=?,brand=?,color=?,price=?,itemDemensions=?,"
+					+ "imageUrl=?,category=?,quanity=?where productName=?";
+			preparedStmt= con.prepareStatement(query);
+	
+			preparedStmt.setString(1, i.getModelNum());
+			preparedStmt.setString(2, i.getBrand());
+			preparedStmt.setString(3, i.getColor());
+			preparedStmt.setString(4, i.getPrice());
+			preparedStmt.setString(5, i.getItemDemensions());
+			preparedStmt.setString(6, i.getImageUrl());
+			preparedStmt.setString(7, i.getCategory());
+			preparedStmt.setString(8, i.getQty());
+			preparedStmt.setString(9, i.getProductName());
+			preparedStmt.executeUpdate();
+		    con.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+			return false;
+		} 
+		return true;
+	}
 	public static void insertItem(Item p) throws SQLException {
 		try {
 			Connection con = connect();
-			String query = " insert into items (productName, modelNumber, brand, color, price, itemDemensions, imageUrl, category)" 
-			+ " values (?, ?, ?, ?, ?, ?, ?, ?)";
+			String query = " insert into items (productName, modelNumber, brand, color, price, itemDemensions, imageUrl, category, quanity)" 
+			+ " values (?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 			// create the mysql insert preparedstatement
 			PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -87,6 +115,7 @@ public class DbConnect {
 			preparedStmt.setString(6, p.getItemDemensions());
 			preparedStmt.setString(7, p.getImageUrl());
 			preparedStmt.setString(8, p.getCategory());
+			preparedStmt.setString(9, p.getQty());
 			// execute the preparedstatement
 			preparedStmt.execute();
 
@@ -119,7 +148,8 @@ public class DbConnect {
 			String itemDemensions = rs.getString("itemDemensions");
 			String imageUrl = rs.getString("imageUrl");
 			String category = rs.getString("category");
-			Item item = new Item(givenProductName,modelNumber,brand,  color,  price, itemDemensions, imageUrl, category);
+			String quanity = rs.getString("quanity");
+			Item item = new Item(givenProductName,modelNumber,brand,  color,  price, itemDemensions, imageUrl, category,quanity);
 			resultList.add(item);
 			System.out.println(item.getProductName());
 		}
@@ -129,35 +159,6 @@ public class DbConnect {
 		
 	
 	}
-	
-//	public static Item getItem(String givenProductName) throws SQLException {
-//		Connection con = null;
-//		try {
-//			con = connect();
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		String query = "SELECT * FROM items WHERE `productName`= ?";
-//		PreparedStatement preparedStmt = con.prepareStatement(query);
-//		preparedStmt.setString(1, givenProductName);
-//		ResultSet rs = preparedStmt.executeQuery();
-//		if (rs.first()) {
-//			String modelNumber = rs.getString("modelNumber");
-//			String brand = rs.getString("brand");
-//			String color = rs.getString("color");
-//			String price = rs.getString("price");
-//			String itemDemensions = rs.getString("itemDemensions");
-//			String imageUrl = rs.getString("imageUrl");
-//			String category = rs.getString("category");
-//			Item item = new Item(givenProductName,modelNumber,brand,  color,  price,  
-//					itemDemensions, imageUrl, category);
-//			con.close();
-//			
-//			return item;
-//		}
-//		con.close();
-//		return null;
-//	}
 
 	public static Person deletePerson() throws SQLException {
 		Connection con = null;

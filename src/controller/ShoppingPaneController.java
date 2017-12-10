@@ -7,13 +7,10 @@ import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,6 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import model.Cart;
 import model.Item;
 
 public class ShoppingPaneController implements Initializable {
@@ -51,34 +49,26 @@ public class ShoppingPaneController implements Initializable {
 	@FXML
 	private VBox imageVBox;
 
-	// @FXML
-	// private ImageView imageView;
-
-	// @FXML
-	// private ChoiceBox<String> productTypeBox;
 	@FXML
 	private ListView<String> itemListView;
-
+	public static Cart cart = new Cart();
 	private Item item;
 	private ArrayList<Item> list = new ArrayList<Item>();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// productTypeBox.getItems().removeAll(productTypeBox.getItems());
-		// productTypeBox.getItems().addAll("Window","Paint","Furniture");
 		itemListView.focusedProperty().addListener(new ChangeListener<Boolean>() {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				String productName = itemListView.getSelectionModel().getSelectedItem();
 				for (int i = 0; i < list.size(); i++) {
-				//	System.out.println(list.get(i).getProductName());
-					if(list.get(i).getProductName().equals(productName)) {
+					if (list.get(i).getProductName().equals(productName)) {
 						item = list.get(i);
 					}
 				}
 				displayItem(productName);
 			}
 		});
-		// addToCartBtn.setDisable(true);
+	
 
 	}
 
@@ -88,9 +78,6 @@ public class ShoppingPaneController implements Initializable {
 		demensionsLbl.setText(item.getItemDemensions());
 		brandLbl.setText(item.getBrand());
 		produtNameLbl.setText(item.getProductName());
-		// C:/Users/alvin/Desktop/CSE
-		// 248/JosephCse248HabitatForHumanityProject/images/windowImage.jpg
-		// file:///C://Users//alvin//Desktop//CSE248//JosephCse248HabitatForHumanityProject//images//Paint-Can3.png
 		Image image = new Image(item.getImageUrl());
 		ImageView imageView = new ImageView();
 		imageView.setImage(image);
@@ -103,10 +90,20 @@ public class ShoppingPaneController implements Initializable {
 
 	}
 
+	private void addedToCartAlert() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText("Succesfully added to cart");
+		alert.setContentText("Thank you please checkout when done");
+		alert.showAndWait();
+	}
+
 	public void addToCartBtnClicked(ActionEvent event) {
 		if (item == null) {
 			noProuductSelectedAlert();
 			return;
+		}
+		if (cart.addItem(item)) {
+			addedToCartAlert();
 		}
 	}
 
@@ -134,22 +131,6 @@ public class ShoppingPaneController implements Initializable {
 			itemListView.getItems().add(list.get(i).getProductName());
 		}
 	}
-	// public void searchBtnClicked(ActionEvent event) {
-	// try {
-	// ArrayList<Item> list = new ArrayList<Item>();
-	// item = DbConnect.getItem(searchField.getText());
-	//
-	// } catch (SQLException e) {
-	// e.printStackTrace();
-	// }
-	// if (item == null) {
-	// productDoesntExistAlert();
-	// return;
-	// }
-	// itemListView.getItems().clear();
-	// itemListView.getItems().add(item.getProductName());
-	//
-	// }
 
 	private void productDoesntExistAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -159,7 +140,6 @@ public class ShoppingPaneController implements Initializable {
 	}
 
 	public void listViewItemClicked(ActionEvent event) {
-		System.out.println("YA");
 		colorLbl.setText(item.getColor());
 		priceLbl.setText(item.getPrice());
 		demensionsLbl.setText(item.getItemDemensions());
