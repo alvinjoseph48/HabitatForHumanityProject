@@ -50,29 +50,26 @@ public class ShoppingPaneController implements Initializable {
 	private VBox imageVBox;
 
 	@FXML
-	private ListView<String> itemListView;
+	private ListView<Item> itemListView;
 	public static Cart cart = new Cart();
 	private Item item;
 	private ArrayList<Item> list = new ArrayList<Item>();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		itemListView.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				String productName = itemListView.getSelectionModel().getSelectedItem();
-				for (int i = 0; i < list.size(); i++) {
-					if (list.get(i).getProductName().equals(productName)) {
-						item = list.get(i);
-					}
-				}
-				displayItem(productName);
+		itemListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Item> arg0, Item old, Item newValue) {
+				displayItem(newValue);
+				item = newValue;
 			}
 		});
 	
 
 	}
 
-	public void displayItem(String productName) {
+	public void displayItem(Item item) {
 		colorLbl.setText(item.getColor());
 		priceLbl.setText(item.getPrice());
 		demensionsLbl.setText(item.getItemDemensions());
@@ -128,7 +125,7 @@ public class ShoppingPaneController implements Initializable {
 		}
 		itemListView.getItems().clear();
 		for (int i = 0; i < list.size(); i++) {
-			itemListView.getItems().add(list.get(i).getProductName());
+			itemListView.getItems().add(list.get(i));
 		}
 	}
 

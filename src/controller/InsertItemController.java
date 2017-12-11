@@ -102,7 +102,7 @@ public class InsertItemController implements Initializable {
 		 FileChooser fileChooser = new FileChooser();
 		 Stage stage = new Stage();
 		 File file = fileChooser.showOpenDialog(stage);
-		 imageUrlField.setText(file.toURI().getPath());
+		 imageUrlField.setText("File://" + file.toURI().getPath());
 	}
 
 	private void imageUrlInvalidAlert() {

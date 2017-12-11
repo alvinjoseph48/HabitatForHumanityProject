@@ -16,7 +16,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Customer;
 import model.Employee;
@@ -35,6 +38,7 @@ public class LoginController implements Initializable {
 	@FXML
 	private Button createUserBtn;
 	@FXML
+	private VBox vBox;
 	public void createUserBtnClicked(ActionEvent event) {
 		
 		try {
@@ -135,7 +139,16 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		Image image = new Image("file:///C:/Users/alvin/Desktop/CSE%20248/JosephCse248HabitatForHumanityProject/images/H4H_NewYorkCity_social.png");
+		//Image image = new Image("file:///C:/Users/alvin/Desktop/CSE%20248/JosephCse248HabitatForHumanityProject/images/hmptfgCQ.jpg");
+		ImageView imageView = new ImageView();
+		imageView.setImage(image);
+		imageView.setPreserveRatio(true);
+		imageView.setSmooth(true);
+		imageView.setFitWidth(240);
+		imageView.setFitHeight(120);
+		vBox.getChildren().clear();
+		vBox.getChildren().add(imageView);
 	}
 
 }

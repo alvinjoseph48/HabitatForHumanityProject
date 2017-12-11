@@ -59,6 +59,8 @@ public class Item {
 	public String getQty() {
 		return qty;
 	}
-
-
+	@Override
+	public String toString() {
+		return productName;
+	}
 }

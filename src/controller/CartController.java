@@ -25,7 +25,7 @@ import model.Item;
 
 public class CartController implements Initializable{
 	@FXML
-    private ListView<String> cartListView;
+    private ListView<Item> cartListView;
 
     @FXML
     private Button checkoutBtn;
@@ -51,16 +51,23 @@ public class CartController implements Initializable{
     private Item item;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		cartListView.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue){
-				item = null;
-				String productName = cartListView.getSelectionModel().getSelectedItem();
-				if(productName != null) {
-					item = cart.getItem(productName);
-					displayItem(productName);
-				}
-			}
-		});
+		cartListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Item> arg0, Item old, Item newValue) {
+				displayItem(newValue);
+				item = newValue;
+			}});
+//		cartListView.focusedProperty().addListener(new ChangeListener<Boolean>() {
+//			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue){
+//				item = null;
+//				String productName = cartListView.getSelectionModel().getSelectedItem();
+//				if(productName != null) {
+//					item = cart.getItem(productName);
+//					displayItem(productName);
+//				}
+//			}
+//		});
 		if (cart.getCart().isEmpty()) {
 			return;
 		}
@@ -71,7 +78,7 @@ public class CartController implements Initializable{
 	public void insertItems() {
 		cartListView.getItems().clear();
 		for (int i = 0; i < cart.getCart().size(); i++) {
-			cartListView.getItems().add(cart.getCart().get(i).getProductName());
+			cartListView.getItems().add(cart.getCart().get(i));
 		}
 		subtotalLbl.setText(String.valueOf(getSubtotal() )+ " $");
 	}
@@ -83,7 +90,7 @@ public class CartController implements Initializable{
 		return subtotal;
 	}
 	ImageView imageView;
-	public void displayItem(String productName) {
+	public void displayItem(Item item) {
 		cartPriceLbl.setText(item.getPrice());
 		cartProductNameLbl.setText(item.getProductName());
 		
