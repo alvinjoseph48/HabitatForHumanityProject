@@ -71,7 +71,7 @@ public class ShoppingPaneController implements Initializable {
 
 	public void displayItem(Item item) {
 		colorLbl.setText(item.getColor());
-		priceLbl.setText(item.getPrice());
+		priceLbl.setText(item.getPrice()+" $");
 		demensionsLbl.setText(item.getItemDemensions());
 		brandLbl.setText(item.getBrand());
 		produtNameLbl.setText(item.getProductName());
@@ -113,8 +113,7 @@ public class ShoppingPaneController implements Initializable {
 
 	public void searchBtnClicked(ActionEvent event) {
 		try {
-
-			list = DbConnect.getItem(searchField.getText());
+			list = DbConnect.getItem(searchField.getText().trim());
 
 		} catch (SQLException e) {
 			e.printStackTrace();

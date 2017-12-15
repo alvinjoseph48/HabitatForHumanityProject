@@ -157,7 +157,7 @@ public class CreateUserController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		userTypeBox.getItems().removeAll(userTypeBox.getItems());
-		userTypeBox.getItems().addAll("Customer", "Employee", "Manager");
+		userTypeBox.getItems().addAll("Customer", "Employee");
 		stateBox.getItems().removeAll(stateBox.getItems());
 		stateBox.getItems().addAll(states);
 		gridPane.setStyle("-fx-background-color: #383838;");

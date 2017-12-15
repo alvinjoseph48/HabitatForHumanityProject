@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import model.Item;
 
 public class UpdateItemController implements Initializable {
 	@FXML
-	private ListView<String> updateItemListView;
+	private ListView<Item> updateItemListView;
 
 	@FXML
 	private Button updateSearchBtn;
@@ -74,14 +75,25 @@ public class UpdateItemController implements Initializable {
 		FileChooser fileChooser = new FileChooser();
 		Stage stage = new Stage();
 		File file = fileChooser.showOpenDialog(stage);
-		urlField.setText(file.toURI().getPath());
+		if (file == null) {
+			return;
+		}
+		try {
+			urlField.setText(trimFile(file));
+		} catch (ArrayIndexOutOfBoundsException e) {
+			imageUrlInvalidAlert();
+		}
+		// urlField.setText("File://" + file.toURI().getPath());
+	}
+
+	public String trimFile(File file) throws ArrayIndexOutOfBoundsException {
+		String[] str = file.toURI().getPath().split("src/");
+		return str[1];
 	}
 
 	public void searchBtnClicked(ActionEvent event) {
 		try {
-
 			itemList = DbConnect.getItem(searchItemField.getText());
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +103,7 @@ public class UpdateItemController implements Initializable {
 		}
 		updateItemListView.getItems().clear();
 		for (int i = 0; i < itemList.size(); i++) {
-			updateItemListView.getItems().add(itemList.get(i).getProductName());
+			updateItemListView.getItems().add(itemList.get(i));
 		}
 	}
 
@@ -112,29 +124,37 @@ public class UpdateItemController implements Initializable {
 		String category = categoryBox.getSelectionModel().getSelectedItem();
 		String qty = qtyField.getText();
 		String url = urlField.getText();
-		
+
 		Item newItem = new Item(productName, modelNumber, brand, color, price, demensions, url, category, qty);
 
-		if(DbConnect.updateItem(newItem)) {
+		if (DbConnect.updateItem(newItem)) {
 			updateGoodAlert();
-		}else {
+			setFields();
+		} else {
 			updateBadAlert();
+			return;
 		}
+		setImage(url);
+
 	}
+
 	private void updateBadAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Could not update Item ");
 		alert.setContentText("Try again");
 		alert.showAndWait();
 	}
+
 	private void updateGoodAlert() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setHeaderText("Updated Item ");
 		alert.setContentText("Thank you");
 		alert.showAndWait();
 	}
+
 	public void setImage(String string) {
 		Image image;
+		// images/bay-or-bow-windows1.png
 		try {
 			image = new Image(string);
 			ImageView imageView = new ImageView();
@@ -154,7 +174,7 @@ public class UpdateItemController implements Initializable {
 	private void imageUrlInvalidAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Inavlid Image Url");
-		alert.setContentText("Please Enter valid URL File \n For Example: file:///C://Users// ");
+		alert.setContentText("Please choose file from images folder and refresh eclipse");
 		alert.showAndWait();
 	}
 
@@ -175,18 +195,15 @@ public class UpdateItemController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		categoryBox.getItems().removeAll(categoryBox.getItems());
 		categoryBox.getItems().addAll("Window", "Paint", "Furniture");
-		updateItemListView.focusedProperty().addListener(new ChangeListener<Boolean>() {
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				String productName = updateItemListView.getSelectionModel().getSelectedItem();
-				if (productName != null) {
-					for (int i = 0; i < itemList.size(); i++) {
-						if (itemList.get(i).getProductName().equals(productName)) {
-							item = itemList.get(i);
-							setFields();
-						}
-					}
-					setFields();
+		updateItemListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Item> arg0, Item old, Item newValue) {
+				if (newValue == null) {
+					return;
 				}
+				item = newValue;
+				setFields();
 			}
 		});
 	}

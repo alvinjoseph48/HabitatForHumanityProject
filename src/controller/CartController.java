@@ -55,19 +55,13 @@ public class CartController implements Initializable{
 
 			@Override
 			public void changed(ObservableValue<? extends Item> arg0, Item old, Item newValue) {
+				if(newValue == null) {
+					return;
+				}
 				displayItem(newValue);
 				item = newValue;
 			}});
-//		cartListView.focusedProperty().addListener(new ChangeListener<Boolean>() {
-//			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue){
-//				item = null;
-//				String productName = cartListView.getSelectionModel().getSelectedItem();
-//				if(productName != null) {
-//					item = cart.getItem(productName);
-//					displayItem(productName);
-//				}
-//			}
-//		});
+
 		if (cart.getCart().isEmpty()) {
 			return;
 		}

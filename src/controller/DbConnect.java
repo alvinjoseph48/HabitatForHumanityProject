@@ -137,7 +137,6 @@ public class DbConnect {
 		String query = "SELECT * FROM items WHERE productName LIKE ? ";
 		//String query = "SELECT productName FROM items WHERE CONTAINS (productName, ?) ";
 		PreparedStatement preparedStmt = con.prepareStatement(query);
-		System.out.println("name:"+ givenProductName);
 		preparedStmt.setString(1, "%"+givenProductName+"%");
 		ResultSet rs = preparedStmt.executeQuery();
 		ArrayList<Item> resultList = new ArrayList<Item>();
@@ -153,7 +152,6 @@ public class DbConnect {
 			String quanity = rs.getString("quanity");
 			Item item = new Item(productName,modelNumber,brand,  color,  price, itemDemensions, imageUrl, category,quanity);
 			resultList.add(item);
-			System.out.println(item.getProductName());
 		}
 		con.close();
 		return resultList;

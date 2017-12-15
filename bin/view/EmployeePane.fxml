@@ -18,7 +18,6 @@
           <Menu mnemonicParsing="false" text="Search">
             <items>
               <MenuItem fx:id="employeeProductSearch" mnemonicParsing="false" onAction="#productSearchClicked" text="Product" />
-                  <MenuItem fx:id="employeeCustomerSearch" mnemonicParsing="false" text="Customer" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Insert">

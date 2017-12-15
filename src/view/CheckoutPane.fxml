@@ -36,9 +36,9 @@
       <Label layoutX="411.0" layoutY="208.0" text="Name on card " />
       <Label layoutX="421.0" layoutY="264.0" text="Number" />
       <Label fx:id="checkoutSubLbl" layoutX="95.0" layoutY="36.0" prefHeight="18.0" prefWidth="57.0" />
-      <Label fx:id="shippingLbl" layoutX="95.0" layoutY="65.0" prefHeight="18.0" prefWidth="48.0" />
-      <Label fx:id="taxLbl" layoutX="94.0" layoutY="93.0" prefHeight="18.0" prefWidth="50.0" />
-      <Label fx:id="totalLbl" layoutX="93.0" layoutY="121.0" prefHeight="18.0" prefWidth="44.0" />
+      <Label fx:id="shippingLbl" layoutX="95.0" layoutY="65.0" prefHeight="18.0" prefWidth="66.0" />
+      <Label fx:id="taxLbl" layoutX="94.0" layoutY="93.0" prefHeight="18.0" prefWidth="74.0" />
+      <Label fx:id="totalLbl" layoutX="93.0" layoutY="121.0" prefHeight="18.0" prefWidth="74.0" />
       <ChoiceBox fx:id="stateBox" layoutX="115.0" layoutY="325.0" prefWidth="150.0" />
    </children>
    <padding>

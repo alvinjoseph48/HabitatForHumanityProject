@@ -15,7 +15,7 @@
       <Label fx:id="subtotalLbl" layoutX="121.0" layoutY="289.0" />
       <Label layoutX="291.0" layoutY="29.0" text="Product Name" />
       <Label layoutX="292.0" layoutY="69.0" text="Price" />
-      <Label layoutX="290.0" layoutY="105.0" text="Quanity" />
+      <Label layoutX="290.0" layoutY="105.0" />
       <Label fx:id="cartProductNameLbl" layoutX="445.0" layoutY="29.0" />
       <Label fx:id="cartPriceLbl" layoutX="445.0" layoutY="69.0" />
       <Label fx:id="cartQtyLbl" layoutX="445.0" layoutY="105.0" />

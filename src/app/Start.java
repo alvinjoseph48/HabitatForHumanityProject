@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 //import view.View;
 
 public class Start extends Application {
-//	public static Stage primaryStage;
+	// public static Stage primaryStage;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -20,4 +20,11 @@ public class Start extends Application {
 		primaryStage.show();
 		
 	}
-}
+		    
+	 public static void main(String[] args) {
+	        Application.launch(args);
+	   }
+	    
+
+	}
+

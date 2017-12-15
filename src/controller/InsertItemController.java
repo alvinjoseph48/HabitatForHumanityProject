@@ -102,13 +102,23 @@ public class InsertItemController implements Initializable {
 		 FileChooser fileChooser = new FileChooser();
 		 Stage stage = new Stage();
 		 File file = fileChooser.showOpenDialog(stage);
-		 imageUrlField.setText("File://" + file.toURI().getPath());
+			try {
+				imageUrlField.setText(trimFile(file));
+			} catch (ArrayIndexOutOfBoundsException e) {
+				imageUrlInvalidAlert();
+			}
+		
+	}
+	public String trimFile(File file) throws ArrayIndexOutOfBoundsException {
+			String[] str = file.toURI().getPath().split("src/");
+			return str[1];
 	}
 
 	private void imageUrlInvalidAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("Inavlid Image Url");
-		alert.setContentText("Please Enter valid URL File \n For Example: file:///C://Users// ");
+		alert.setContentText("Please add image from images folder and make"
+				+ " sure you refresh eclipse");
 		alert.showAndWait();
 	}
 

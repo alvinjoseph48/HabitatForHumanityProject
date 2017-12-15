@@ -73,6 +73,7 @@ public class CheckoutController implements Initializable {
 		setBoxes();
 		getCosts();
 	}
+
 	public void setBoxes() {
 		stateBox.getItems().removeAll(stateBox.getItems());
 		stateBox.getItems().addAll(states);
@@ -81,34 +82,38 @@ public class CheckoutController implements Initializable {
 		yearBox.getItems().removeAll(yearBox.getItems());
 		yearBox.getItems().addAll("2017", "2018", "2019", "2020", "2021");
 	}
+
 	public int getSubtotal() {
-	
-			int subtotal  = 0;
-			for (int i = 0; i < ShoppingPaneController.cart.getCart().size(); i++) {
-				subtotal +=	Integer.valueOf(ShoppingPaneController.cart.getCart().get(i).getPrice());
-			}
-			return subtotal;
+
+		int subtotal = 0;
+		for (int i = 0; i < ShoppingPaneController.cart.getCart().size(); i++) {
+			subtotal += Integer.valueOf(ShoppingPaneController.cart.getCart().get(i).getPrice());
 		}
+		return subtotal;
+	}
+
 	private void noItemsInCartAlert() {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setHeaderText("No Items in cart");
 		alert.setContentText("Please add Items first");
 		alert.showAndWait();
 	}
+
 	public void getCosts() {
 		DecimalFormat df = new DecimalFormat();
 		df.setMaximumFractionDigits(2);
 		int subtotal = getSubtotal();
-		checkoutSubLbl.setText(String.valueOf(subtotal));
-		final double TAX_RATE  = .08875;
-		double tax = TAX_RATE* subtotal;
+		checkoutSubLbl.setText(String.valueOf(subtotal)+" $");
+		final double TAX_RATE = .08875;
+		double tax = TAX_RATE * subtotal;
 		final double SHIPPING_RATE = .1;
-		double shipping = SHIPPING_RATE*subtotal;
-		taxLbl.setText(df.format(tax));
-		shippingLbl.setText(String.valueOf(shipping));
+		double shipping = SHIPPING_RATE * subtotal;
+		taxLbl.setText(df.format(tax)+" $");
+		shippingLbl.setText(String.valueOf(shipping)+" $");
 		double total = (subtotal + tax + shipping);
-		totalLbl.setText(df.format(total));
+		totalLbl.setText(df.format(total)+" $");
 	}
+
 	private ObservableList<String> states = FXCollections.observableArrayList("Alabama", "Alaska", "Arkansas",
 			"Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
 			"Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
@@ -127,7 +132,7 @@ public class CheckoutController implements Initializable {
 
 	@FXML
 	void placeOrderBtnClicked(ActionEvent event) {
-		if(getSubtotal() == 0) {
+		if (getSubtotal() == 0) {
 			noItemsInCartAlert();
 			return;
 		}
@@ -136,16 +141,41 @@ public class CheckoutController implements Initializable {
 		String cardNumber = numberField.getText();
 		String code = codeField.getText();
 		String name = nameField.getText();
-		if(month == null||year== null||cardNumber== null|| code== null||name== null) {
-			emptyFields();
+		if (cardNumber.length() < 10 || cardNumber.length() > 20) {
+			creditCardError();
+			return;
 		}
-		Address address= new Address(streetNumField.getText(),streetField.getText(),cityField.getText()
-				,zipCodeField.getText(),stateBox.getSelectionModel().getSelectedItem());
-		if(address.getCity().isEmpty()||address.getState().isEmpty()||address.getStreet().isEmpty()||
-				address.getStreetNum().isEmpty()|| address.getZip().isEmpty()) {
-			emptyFields();
+		if (code.length() != 3) {
+			creditCardError();
+			return;
+		}
+		if(!isNumber(cardNumber)) {
+			creditCardError();
+			return;
 		}
 		
+		if (month == null || year == null || cardNumber == null || code == null || name == null || code.isEmpty()) {
+			emptyFields();
+			return;
+		}
+		Address address = new Address(streetNumField.getText(), streetField.getText(), cityField.getText(),
+				zipCodeField.getText(), stateBox.getSelectionModel().getSelectedItem());
+		if (address.getCity().isEmpty() || address.getState().isEmpty() || address.getStreet().isEmpty()
+				|| address.getStreetNum().isEmpty() || address.getZip().isEmpty()) {
+			emptyFields();
+			return;
+		}
+		placedOrderAlert();
+
+	}
+	public boolean isNumber(String string) {
+		  for (int i = 0; i < string.length(); i++) {
+		    if (!Character.isDigit(string.charAt(i))) {
+		      return false;
+		    }
+		  }
+
+		  return true;
 		}
 	private void emptyFields() {
 		Alert alert = new Alert(AlertType.ERROR);
@@ -153,6 +183,20 @@ public class CheckoutController implements Initializable {
 		alert.setContentText("Please enter all fields");
 		alert.showAndWait();
 	}
-	
+
+	private void creditCardError() {
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setHeaderText("Credit card info is invalid");
+		alert.setContentText("Please enter valid information \n"
+				+ "Security code: 3 digits \nNumber: 10-20 digits");
+		alert.showAndWait();
+	}
+
+	private void placedOrderAlert() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setHeaderText("Ordered placed");
+		alert.setContentText("Thank you !");
+		alert.showAndWait();
+	}
 
 }
