@@ -59,8 +59,8 @@ public class ShoppingPaneController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		if(CheckoutController.isPurchased) {
-			list = null;
-			cart = null;
+			list.removeAll(list);
+			cart.removeAll();
 		}
 		itemListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
 

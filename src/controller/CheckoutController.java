@@ -170,7 +170,7 @@ public class CheckoutController implements Initializable {
 			return;
 		}
 		placedOrderAlert();
-		isPurchased = false; 
+		isPurchased = true; 
 		BorderPane borderPane = (BorderPane) placeOrderBtn.getParent().getParent();
 		Parent root;
 		try {

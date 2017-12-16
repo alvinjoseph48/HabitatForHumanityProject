@@ -29,6 +29,9 @@ public class Cart {
 		}
 		return null;
 	}
+	public void removeAll() {
+		cartList.removeAll(getCart());
+	}
 	public ArrayList<Item> getCart(){
 		return cartList;
 	}

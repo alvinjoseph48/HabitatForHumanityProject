@@ -62,7 +62,11 @@ public class CartController implements Initializable{
 				displayItem(newValue);
 				item = newValue;
 			}});
-
+		try {
+			cart.getCart();
+		} catch (NullPointerException e) {
+			return;
+		}
 		if (cart.getCart().isEmpty()) {
 			return;
 		}
