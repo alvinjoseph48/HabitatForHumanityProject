@@ -52,15 +52,23 @@ public class ShoppingPaneController implements Initializable {
 	@FXML
 	private ListView<Item> itemListView;
 	public static Cart cart = new Cart();
+
 	private Item item;
 	private ArrayList<Item> list = new ArrayList<Item>();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		if(CheckoutController.isPurchased) {
+			list = null;
+			cart = null;
+		}
 		itemListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
 
 			@Override
 			public void changed(ObservableValue<? extends Item> arg0, Item old, Item newValue) {
+				if(newValue == null) {
+					return;
+				}
 				displayItem(newValue);
 				item = newValue;
 			}

@@ -51,6 +51,7 @@ public class CartController implements Initializable{
     private Item item;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		cartListView.getItems().clear();
 		cartListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Item>() {
 
 			@Override

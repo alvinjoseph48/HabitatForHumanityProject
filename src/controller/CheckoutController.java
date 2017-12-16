@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
@@ -8,12 +9,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.control.Alert.AlertType;
 import model.Address;
 import model.Person;
@@ -66,7 +70,7 @@ public class CheckoutController implements Initializable {
 	private Label totalLbl;
 
 	Person person = DbConnect.getPerson();
-
+	public static boolean isPurchased = false; 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		setField();
@@ -166,6 +170,18 @@ public class CheckoutController implements Initializable {
 			return;
 		}
 		placedOrderAlert();
+		isPurchased = false; 
+		BorderPane borderPane = (BorderPane) placeOrderBtn.getParent().getParent();
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("/view/ShoppingPane.fxml"));
+			borderPane.setCenter(root);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
 
 	}
 	public boolean isNumber(String string) {
