@@ -110,6 +110,9 @@ public class InsertItemController implements Initializable {
 		
 	}
 	public String trimFile(File file) throws ArrayIndexOutOfBoundsException {
+			if (file == null) {
+				return "";
+			}
 			String[] str = file.toURI().getPath().split("src/");
 			return str[1];
 	}
